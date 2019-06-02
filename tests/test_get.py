@@ -1,14 +1,14 @@
 import pytest
 from unittest import mock
 
-from backend_http.get import get, NotValidUrl
+from backend_http.get import get, InvalidUrl
 
 
 class TestGet(object):
 
     def test_it_raises_not_valid_url_for_no_url(self):
 
-        with pytest.raises(NotValidUrl):
+        with pytest.raises(InvalidUrl):
             get('')
 
     @pytest.mark.parametrize(
@@ -20,7 +20,7 @@ class TestGet(object):
     )
     def test_it_raises_not_valid_url_for_not_valid_protocol(self, url):
 
-        with pytest.raises(NotValidUrl):
+        with pytest.raises(InvalidUrl):
             get(url)
 
     @pytest.mark.parametrize(
