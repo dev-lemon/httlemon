@@ -1,14 +1,25 @@
-from backend_http.get import get, InvalidUrl
+from backend_http.do_request import (
+    InvalidUrl,
+    NotImplementedHttpVerb,
+    do_request,
+)
 
 
-def client_get(url):
+def client_request(http_verb, url):
 
     try:
-        response = get(url)
+
+        response = do_request(http_verb, url)
+
+        return beautify_response(response)
+
     except InvalidUrl:
+
         return 'No request: the provided url is invalid.'
 
-    return beautify_response(response)
+    except NotImplementedHttpVerb:
+
+        return 'No request: the provided HTTP verb is not allowed.'
 
 
 def beautify_response(response):
