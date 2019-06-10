@@ -7,17 +7,17 @@ class InvalidUrl(Exception):
     pass
 
 
-class NotImplementedHttpVerb(Exception):
+class HttpVerbNotImplemented(Exception):
     pass
 
 
 def do_request(http_verb, url):
 
-    if http_verb in ('get', 'GET'):
+    if http_verb.upper() in ('GET',):
 
         return get(url)
 
-    raise NotImplementedHttpVerb
+    raise HttpVerbNotImplemented
 
 
 def get(url):

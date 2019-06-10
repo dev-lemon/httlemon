@@ -17,11 +17,11 @@ class TestHttLemon:
         mock_client_request.return_value = 'No request: not enough lemon!'
 
         with pytest.raises(SystemExit):
-            httlemon(['post', 'http://lemon.com/api/resource'])
+            httlemon(['post', 'http://lemon.com/api/resource/'])
 
         out, err = capsys.readouterr()
         mock_client_request.assert_called_once_with(
             'post',
-            'http://lemon.com/api/resource',
+            'http://lemon.com/api/resource/',
         )
         assert out == 'No request: not enough lemon!\n'

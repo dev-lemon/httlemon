@@ -2,7 +2,7 @@ import pytest
 from unittest import mock
 
 from backend_http.do_request import (
-    NotImplementedHttpVerb,
+    HttpVerbNotImplemented,
     InvalidUrl,
     do_request,
     get,
@@ -13,7 +13,7 @@ class TestDoRequest:
 
     def test_it_raises_not_implemented_http_verb_for_no_get(self):
 
-        with pytest.raises(NotImplementedHttpVerb):
+        with pytest.raises(HttpVerbNotImplemented):
             do_request('post', 'http://lemon.com/api/')
 
     @mock.patch('backend_http.do_request.get')

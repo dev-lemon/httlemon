@@ -1,6 +1,6 @@
 from backend_http.do_request import (
     InvalidUrl,
-    NotImplementedHttpVerb,
+    HttpVerbNotImplemented,
     do_request,
 )
 
@@ -17,7 +17,7 @@ def client_request(http_verb, url):
 
         return 'No request: the provided url is invalid.'
 
-    except NotImplementedHttpVerb:
+    except HttpVerbNotImplemented:
 
         return 'No request: the provided HTTP verb is not allowed.'
 
