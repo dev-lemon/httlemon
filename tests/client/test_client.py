@@ -1,21 +1,42 @@
 from unittest import mock
 
-from client.get import client_get, InvalidUrl
+import pytest
+
+from backend_http.do_request import (
+    InvalidUrl,
+    HttpVerbNotImplemented,
+)
+from client.client_request import client_request
 
 
-@mock.patch('client.get.get')
-class TestClientGet:
+class TestClientMapsExceptionsToText:
 
-    def test_it_handles_backend_invalid_url_exceptions(self, mock_get):
+    @mock.patch('client.client_request.do_request')
+    def test_it_maps_invalid_url_to_text(self, mock_do_request):
 
-        mock_get.side_effect = InvalidUrl
+        mock_do_request.side_effect = InvalidUrl
+        response = client_request('get', '')
 
-        response = client_get('')
-
-        mock_get.assert_called_once_with('')
+        mock_do_request.assert_called_once_with('get', '')
         assert response == 'No request: the provided url is invalid.'
 
-    def test_it_handles_backend_responses(self, mock_get):
+    @mock.patch('client.client_request.do_request')
+    def test_it_maps_not_implemented_http_verb_to_text(self, mock_do_request):
+
+        mock_do_request.side_effect = HttpVerbNotImplemented
+        response = client_request('post', 'http://lemon.com/api/resource/')
+
+        mock_do_request.assert_called_once_with(
+            'post',
+            'http://lemon.com/api/resource/',
+        )
+        assert response == 'No request: the provided HTTP verb is not allowed.'
+
+
+class TestClientGetMapsRequestResponses:
+
+    @mock.patch('client.client_request.do_request')
+    def test_it_maps_response_to_text(self, mock_do_request):
 
         mock_attrs = {
             'status_code': 200,
@@ -26,9 +47,16 @@ class TestClientGet:
             'text': '{"lemon": "champ", "magic": true}',
         }
         mock_response = mock.MagicMock(**mock_attrs)
-        mock_get.return_value = mock_response
+        mock_do_request.return_value = mock_response
 
-        response = client_get('http://lemon.com/api/resource')
+        response = client_request('get', 'http://lemon.com/api/resource/')
 
-        mock_get.assert_called_once_with('http://lemon.com/api/resource')
-        assert response == 'Status code: 200\nResponse:\n\n{"lemon": "champ", "magic": true}'
+        mock_do_request.assert_called_once_with(
+            'get',
+            'http://lemon.com/api/resource/',
+        )
+        assert response == (
+            'Status code: 200'
+            '\nResponse:'
+            '\n\n{"lemon": "champ", "magic": true}'
+        )

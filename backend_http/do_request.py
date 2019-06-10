@@ -7,6 +7,19 @@ class InvalidUrl(Exception):
     pass
 
 
+class HttpVerbNotImplemented(Exception):
+    pass
+
+
+def do_request(http_verb, url):
+
+    if http_verb.upper() in ('GET',):
+
+        return get(url)
+
+    raise HttpVerbNotImplemented
+
+
 def get(url):
 
     parsed_url = urlparse(url)

@@ -1,10 +1,37 @@
 import pytest
 from unittest import mock
 
-from backend_http.get import get, InvalidUrl
+from backend_http.do_request import (
+    HttpVerbNotImplemented,
+    InvalidUrl,
+    do_request,
+    get,
+)
 
 
-class TestGet(object):
+class TestDoRequest:
+
+    def test_it_raises_not_implemented_http_verb_for_no_get(self):
+
+        with pytest.raises(HttpVerbNotImplemented):
+            do_request('post', 'http://lemon.com/api/')
+
+    @mock.patch('backend_http.do_request.get')
+    def test_it_calls_get_method_for_get(self, mock_get):
+
+        do_request('get', 'http://lemon.com/api/')
+
+        mock_get.assert_called_once_with('http://lemon.com/api/')
+
+    @mock.patch('backend_http.do_request.get')
+    def test_it_calls_get_method_for_GET(self, mock_get):
+
+        do_request('GET', 'http://lemon.com/api/')
+
+        mock_get.assert_called_once_with('http://lemon.com/api/')
+
+
+class TestGet:
 
     def test_it_raises_not_valid_url_for_no_url(self):
 
@@ -30,7 +57,7 @@ class TestGet(object):
             'https://lemon.com/api/',
         )
     )
-    @mock.patch('backend_http.get.requests')
+    @mock.patch('backend_http.do_request.requests')
     def test_it_gets_url_on_valid_protocol(self, mock_requests, url):
 
         mock_attrs = {
