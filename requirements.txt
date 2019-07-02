@@ -2,4 +2,6 @@ click
 ipdb
 ipython
 pytest
+pytest-cov
 requests
+coveralls
