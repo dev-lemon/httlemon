@@ -1,1 +1,4 @@
 *.py[c]
+tags
+.coverage
+coverage.xml
