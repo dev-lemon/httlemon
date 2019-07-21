@@ -10,3 +10,7 @@ def httlemon(http_verb, url):
 
     beautified_response = client_request(http_verb, url)
     click.echo(beautified_response)
+
+if __name__ == '__main__':
+
+    httlemon()
