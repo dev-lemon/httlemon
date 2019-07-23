@@ -21,7 +21,8 @@ setup(
     install_requires=install_requires,
     test_requires=test_requires,
     extras_require={
-        'dev': dev_requires
+        'dev': dev_requires,
+        'testing': test_requires,
     },
     entry_points={
         'console_scripts': [
