@@ -4,7 +4,7 @@ python:
   - "3.7"
 
 install:
-  - pip install -e .[test]
+  - pip install -e .[testing]
 
 script:
   - pytest --cov-report=xml --cov=./
