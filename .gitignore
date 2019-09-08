@@ -1,4 +1,7 @@
+build/
+*.egg-info
 *.py[c]
 tags
 .coverage
 coverage.xml
+dist
