@@ -17,6 +17,16 @@ dev_requires = [
 
 setup(
     name="httlemon",
+    version="0.0.1",
+    author="Fernando Mezzabotta & Octavio Augusto Coria",
+    author_email="octa.ac@gmail.com",
+    description="An open source HTTP terminal client.",
+    url="https://github.com/dev-lemon/httlemon",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
     pymodules=['httlemon'],
     install_requires=install_requires,
     test_requires=test_requires,
@@ -29,6 +39,5 @@ setup(
             'httlemon=command.httlemon:httlemon'
         ]
     },
-    version="0.1.0",
     packages=find_packages(),
 )
