@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 install_requires = [
     'click',
     'requests',
+    'tinydb',
 ]
 test_requires = [
     'coveralls',

@@ -2,7 +2,10 @@ from unittest import mock
 
 import pytest
 
-from command.httlemon import httlemon
+from command.httlemon import (
+    collections_add,
+    req,
+)
 
 
 class TestHttLemon:
@@ -17,7 +20,7 @@ class TestHttLemon:
         mock_client_request.return_value = 'No request: not enough lemon!'
 
         with pytest.raises(SystemExit):
-            httlemon(['post', 'http://lemon.com/api/resource/'])
+            req(['post', 'http://lemon.com/api/resource/'])
 
         out, err = capsys.readouterr()
         mock_client_request.assert_called_once_with(
@@ -25,3 +28,12 @@ class TestHttLemon:
             'http://lemon.com/api/resource/',
         )
         assert out == 'No request: not enough lemon!\n'
+
+    def test_collections(self, capsys):
+
+        with pytest.raises(SystemExit):
+            collections_add([])
+
+        out, err = capsys.readouterr()
+
+        assert out == 'hola\n'
