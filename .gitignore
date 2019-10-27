@@ -1,7 +1,16 @@
-build/
-*.egg-info
+# Python
 *.py[c]
+
+# Tests
+.pytest_cache/
 tags
 .coverage
 coverage.xml
-dist
+
+# Setuptools
+build/
+dist/
+*.egg-info
+
+# Editor
+.vscode
